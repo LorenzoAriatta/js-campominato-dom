@@ -32,8 +32,10 @@ function genBombs(max) {
         if (!bombs.includes(number)) {
             bombs.push(number);
         }
+        console.log(bombs);
         return bombs;
     }
+
 }
 
 //funzione per verificare se il num generato è valido
@@ -47,7 +49,6 @@ function genBombs(max) {
 
 // funzione crate grid on click
 function gridCreate(columns, rows) {
-
     columns;
     rows;
 
@@ -56,13 +57,14 @@ function gridCreate(columns, rows) {
     grid.innerHTML = '';
     bombs = [];
 
+    genBombs(totalCells);
+
+
     // ciclo crazione cells
     for (let i = 0; i < totalCells; i++) {
 
 
         const cell = createCell();
-
-        genBombs(totalCells);
 
 
         //const numInside = validNumber(1, totalCells, position);
@@ -71,19 +73,21 @@ function gridCreate(columns, rows) {
         cell.innerText = i + 1;
         cell.id = 'cell-' + (i + 1);
 
-        const thatsBomb = bombs.includes(i);
+        grid.appendChild(cell);
 
+    }
+
+    // ciclo creazione bombs
+    for (let b = 1; b <= totalCells; b++) {
+        const cell = document.getElementById('cell-' + b);
         cell.addEventListener('click', function () {
+            const thatsBomb = bombs.includes(b);
             if (thatsBomb) {
                 cell.classList.add('bg-crimson');
             } else {
                 cell.classList.add('bg-green');
             }
-            console.log(cell.id);
         })
-
-        grid.appendChild(cell);
-
     }
 
 }
