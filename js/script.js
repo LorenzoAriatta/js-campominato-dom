@@ -25,12 +25,14 @@ function randomNumberGen(min, max) {
 
 //funzione generazione bombs
 function genBombs(max) {
+    // dichiarazione array
+    let bombs = [];
     while (bombs.lenght < 16) {
         const number = randomNumberGen(1, max);
         if (!bombs.includes(number)) {
             bombs.push(number);
         }
-        return position;
+        return bombs;
     }
 }
 
@@ -54,14 +56,14 @@ function gridCreate(columns, rows) {
     grid.innerHTML = '';
     bombs = [];
 
-
     // ciclo crazione cells
     for (let i = 0; i < totalCells; i++) {
 
 
         const cell = createCell();
 
-        const bombPosition = genBombs();
+        genBombs(totalCells);
+
 
         //const numInside = validNumber(1, totalCells, position);
         //position.push(numInside);
@@ -69,14 +71,15 @@ function gridCreate(columns, rows) {
         cell.innerText = i + 1;
         cell.id = 'cell-' + (i + 1);
 
+        const thatsBomb = bombs.includes(i);
+
         cell.addEventListener('click', function () {
-            if (bombs[i] === cell.id) {
+            if (thatsBomb) {
                 cell.classList.add('bg-crimson');
             } else {
                 cell.classList.add('bg-green');
             }
             console.log(cell.id);
-            console.log(bombs[i]);
         })
 
         grid.appendChild(cell);
@@ -90,8 +93,6 @@ function gridCreate(columns, rows) {
 // dichiarazione grid
 const grid = document.getElementById('gridCells');
 
-// dichiarazione array
-let bombs = [];
 
 // dichiarazioni buttons
 const buttonEasy = document.getElementById('buttonEasy');
