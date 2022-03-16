@@ -32,7 +32,7 @@ function genBombs(max) {
             bombs.push(number);
         }
     }
-    console.log(bombs);
+    console.log('Le bombe sono: ' + bombs);
     return bombs;
 }
 
@@ -60,15 +60,18 @@ function gridCreate(columns, rows) {
         cell.innerText = i;
         cell.id = 'cell-' + i;
 
-        const thatsBomb = bombs.includes(i);
 
         cell.addEventListener('click', function () {
+            const thatsBomb = bombs.includes(i);
             if (thatsBomb) {
                 cell.classList.add('bg-crimson');
+                cell.innerText = 'BOOM!';
+                document.querySelector('.container').classList.add('pointer-none');
+                document.querySelector('.game-over').classList.remove('d-none');
             } else {
                 cell.classList.add('bg-green');
             }
-            console.log(cell.id);
+            console.log('Hai cliccato la ' + cell.id);
         })
 
         grid.appendChild(cell);
@@ -89,6 +92,7 @@ let bombs = [];
 const buttonEasy = document.getElementById('buttonEasy');
 const buttonMedium = document.getElementById('buttonMedium');
 const buttonHard = document.getElementById('buttonHard');
+const restart = document.getElementById('restart');
 
 
 // event click on buttons
