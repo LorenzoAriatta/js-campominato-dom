@@ -25,24 +25,23 @@ function randomNumberGen(min, max) {
 
 //funzione generazione bombs
 function genBombs(max) {
-    let position = [];
-    while (position.lenght < 16) {
+    while (bombs.lenght < 16) {
         const number = randomNumberGen(1, max);
-        if (!position.includes(number)) {
-            position.push(number);
+        if (!bombs.includes(number)) {
+            bombs.push(number);
         }
         return position;
     }
 }
 
 //funzione per verificare se il num generato è valido
-function validNumber(min, max, numberToCheck) {
+/*function validNumber(min, max, numberToCheck) {
     let number = randomNumberGen(min, max);
     while (numberToCheck.includes(number)) {
         number = randomNumberGen(min, max);
     }
     return number;
-}
+}*/
 
 // funzione crate grid on click
 function gridCreate(columns, rows) {
@@ -53,7 +52,7 @@ function gridCreate(columns, rows) {
     const totalCells = columns * rows;
 
     grid.innerHTML = '';
-    position = [];
+    bombs = [];
 
 
     // ciclo crazione cells
@@ -62,22 +61,22 @@ function gridCreate(columns, rows) {
 
         const cell = createCell();
 
-        const bombPosition = genBombs(16);
-        console.log(bombPosition);
+        const bombPosition = genBombs();
 
-        const numInside = validNumber(1, totalCells, position);
-        position.push(numInside);
+        //const numInside = validNumber(1, totalCells, position);
+        //position.push(numInside);
 
         cell.innerText = i + 1;
         cell.id = 'cell-' + (i + 1);
 
         cell.addEventListener('click', function () {
-            if (cell.innerText === 'cell-' + i) {
+            if (bombs[i] === cell.id) {
                 cell.classList.add('bg-crimson');
             } else {
                 cell.classList.add('bg-green');
             }
             console.log(cell.id);
+            console.log(bombs[i]);
         })
 
         grid.appendChild(cell);
@@ -92,7 +91,7 @@ function gridCreate(columns, rows) {
 const grid = document.getElementById('gridCells');
 
 // dichiarazione array
-let position = [];
+let bombs = [];
 
 // dichiarazioni buttons
 const buttonEasy = document.getElementById('buttonEasy');
