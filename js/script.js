@@ -25,27 +25,16 @@ function randomNumberGen(min, max) {
 
 //funzione generazione bombs
 function genBombs(max) {
-    // dichiarazione array
     let bombs = [];
-    while (bombs.lenght < 16) {
+    while (bombs.length < 16) {
         const number = randomNumberGen(1, max);
         if (!bombs.includes(number)) {
             bombs.push(number);
         }
-        console.log(bombs);
-        return bombs;
     }
-
+    console.log(bombs);
+    return bombs;
 }
-
-//funzione per verificare se il num generato è valido
-/*function validNumber(min, max, numberToCheck) {
-    let number = randomNumberGen(min, max);
-    while (numberToCheck.includes(number)) {
-        number = randomNumberGen(min, max);
-    }
-    return number;
-}*/
 
 // funzione crate grid on click
 function gridCreate(columns, rows) {
@@ -55,13 +44,11 @@ function gridCreate(columns, rows) {
     const totalCells = columns * rows;
 
     grid.innerHTML = '';
-    bombs = [];
 
-    genBombs(totalCells);
-
+    bombs = genBombs(totalCells);
 
     // ciclo crazione cells
-    for (let i = 0; i < totalCells; i++) {
+    for (let i = 1; i <= totalCells; i++) {
 
 
         const cell = createCell();
@@ -70,24 +57,22 @@ function gridCreate(columns, rows) {
         //const numInside = validNumber(1, totalCells, position);
         //position.push(numInside);
 
-        cell.innerText = i + 1;
-        cell.id = 'cell-' + (i + 1);
+        cell.innerText = i;
+        cell.id = 'cell-' + i;
 
-        grid.appendChild(cell);
+        const thatsBomb = bombs.includes(i);
 
-    }
-
-    // ciclo creazione bombs
-    for (let b = 1; b <= totalCells; b++) {
-        const cell = document.getElementById('cell-' + b);
         cell.addEventListener('click', function () {
-            const thatsBomb = bombs.includes(b);
             if (thatsBomb) {
                 cell.classList.add('bg-crimson');
             } else {
                 cell.classList.add('bg-green');
             }
+            console.log(cell.id);
         })
+
+        grid.appendChild(cell);
+
     }
 
 }
@@ -97,6 +82,8 @@ function gridCreate(columns, rows) {
 // dichiarazione grid
 const grid = document.getElementById('gridCells');
 
+// dichiarazione array
+let bombs = [];
 
 // dichiarazioni buttons
 const buttonEasy = document.getElementById('buttonEasy');
