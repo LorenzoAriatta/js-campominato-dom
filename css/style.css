@@ -87,6 +87,11 @@ body {
     margin-bottom: 25px;
 }
 
+#actualScore {
+    color: white;
+    font-size: 25px;
+}
+
 .bg-green {
     background-color: green;
 }

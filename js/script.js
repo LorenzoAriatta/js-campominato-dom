@@ -57,10 +57,15 @@ function gridCreate(columns, rows) {
 
     const totalCells = columns * rows;
 
+    // azzeramento grid
     grid.innerHTML = '';
     grid.classList.remove('pointer-none');
 
     bombs = genBombs(totalCells);
+
+    // azzeramento punti
+    let points = 0;
+    actualScore.innerText = '';
 
     // ciclo crazione cells
     for (let i = 1; i <= totalCells; i++) {
@@ -74,10 +79,14 @@ function gridCreate(columns, rows) {
             const thatsBomb = bombs.includes(i);
             if (thatsBomb) {
                 showBombs(bombs);
+                finalScore(points);
+                actualScore.innerText = '';
                 document.getElementById('gridCells').classList.add('pointer-none');
                 document.getElementById('game-over').classList.remove('d-none', 'pointer-none');
             } else {
+                points++;
                 cell.classList.add('bg-green');
+                actualScore.innerText = `Your Score: ${points}`;
             }
             console.log('Hai cliccato la ' + cell.id);
         })
@@ -90,10 +99,19 @@ function gridCreate(columns, rows) {
 
 // funzione restart
 function restart() {
+
     const restartBtn = document.getElementById('restart');
 
     grid.innerHTML = '';
-    grid.classList.remove('pointer-none');
+
+}
+
+// funzione score
+function finalScore(points) {
+
+    const yourScore = document.getElementById('yourScore');
+    yourScore.innerText = `Total Score: ${points}`;
+
 }
 
 // ---------- / FUNZIONI ---------- //
@@ -112,6 +130,9 @@ const buttonMedium = document.getElementById('buttonMedium');
 const buttonHard = document.getElementById('buttonHard');
 const restartButton = document.getElementById('restart');
 
+// dichiarazione score
+let actualScore = document.getElementById('actualScore');
+
 
 // event click on buttons
 // easy
@@ -121,6 +142,7 @@ buttonEasy.addEventListener('click', function () {
     grid.classList.remove('calc-diff2', 'calc-diff3')
 
     gridCreate(10, 10);
+
 })
 
 // medium
@@ -149,6 +171,5 @@ restartButton.addEventListener('click', function () {
     restart();
 
     document.getElementById('game-over').classList.add('d-none');
-
 
 })
