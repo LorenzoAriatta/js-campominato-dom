@@ -95,7 +95,7 @@ body {
     background-color: crimson;
 }
 
-.game-over {
+#game-over {
     width: 1200px;
     height: 1024px;
     background-color:rgba(0, 0, 0, 0.6);

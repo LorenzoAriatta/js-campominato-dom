@@ -58,29 +58,24 @@ function gridCreate(columns, rows) {
     const totalCells = columns * rows;
 
     grid.innerHTML = '';
+    grid.classList.remove('pointer-none');
 
     bombs = genBombs(totalCells);
 
     // ciclo crazione cells
     for (let i = 1; i <= totalCells; i++) {
 
-
         const cell = createCell();
-
-
-        //const numInside = validNumber(1, totalCells, position);
-        //position.push(numInside);
 
         cell.innerText = i;
         cell.id = 'cell-' + i;
-
 
         cell.addEventListener('click', function () {
             const thatsBomb = bombs.includes(i);
             if (thatsBomb) {
                 showBombs(bombs);
                 document.getElementById('gridCells').classList.add('pointer-none');
-                //document.querySelector('.game-over').classList.remove('d-none', 'pointer-none');
+                document.getElementById('game-over').classList.remove('d-none', 'pointer-none');
             } else {
                 cell.classList.add('bg-green');
             }
@@ -91,6 +86,14 @@ function gridCreate(columns, rows) {
 
     }
 
+}
+
+// funzione restart
+function restart() {
+    const restartBtn = document.getElementById('restart');
+
+    grid.innerHTML = '';
+    grid.classList.remove('pointer-none');
 }
 
 // ---------- / FUNZIONI ---------- //
@@ -107,7 +110,7 @@ let bombs = [];
 const buttonEasy = document.getElementById('buttonEasy');
 const buttonMedium = document.getElementById('buttonMedium');
 const buttonHard = document.getElementById('buttonHard');
-const restart = document.getElementById('restart');
+const restartButton = document.getElementById('restart');
 
 
 // event click on buttons
@@ -137,5 +140,15 @@ buttonHard.addEventListener('click', function () {
     grid.classList.remove('calc-diff1', 'calc-diff2')
 
     gridCreate(7, 7);
+
+})
+
+// restart
+restartButton.addEventListener('click', function () {
+
+    restart();
+
+    document.getElementById('game-over').classList.add('d-none');
+
 
 })
