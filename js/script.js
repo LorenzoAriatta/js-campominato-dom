@@ -26,6 +26,7 @@ function randomNumberGen(min, max) {
 //funzione generazione bombs
 function genBombs(max) {
     let bombs = [];
+    console.log(bombs.id)
     while (bombs.length < 16) {
         const number = randomNumberGen(1, max);
         if (!bombs.includes(number)) {
@@ -35,6 +36,19 @@ function genBombs(max) {
     console.log('Le bombe sono: ' + bombs);
     return bombs;
 }
+
+// funzione per mostrare le bombs
+function showBombs(bombsToShow) {
+    const allCells = document.querySelectorAll('.cell');
+    for (let i = 0; i < allCells.length; i++) {
+        if (bombsToShow.includes(i + 1)) {
+            const bombCell = allCells[i];
+            bombCell.classList.add('bg-crimson');
+            bombCell.innerText = 'BOOM!';
+        }
+    }
+}
+
 
 // funzione crate grid on click
 function gridCreate(columns, rows) {
@@ -64,10 +78,9 @@ function gridCreate(columns, rows) {
         cell.addEventListener('click', function () {
             const thatsBomb = bombs.includes(i);
             if (thatsBomb) {
-                cell.classList.add('bg-crimson');
-                cell.innerText = 'BOOM!';
-                document.querySelector('.container').classList.add('pointer-none');
-                document.querySelector('.game-over').classList.remove('d-none');
+                showBombs(bombs);
+                document.getElementById('gridCells').classList.add('pointer-none');
+                //document.querySelector('.game-over').classList.remove('d-none', 'pointer-none');
             } else {
                 cell.classList.add('bg-green');
             }
@@ -85,8 +98,10 @@ function gridCreate(columns, rows) {
 // dichiarazione grid
 const grid = document.getElementById('gridCells');
 
-// dichiarazione array
+
+// dichiarazione array bombs
 let bombs = [];
+
 
 // dichiarazioni buttons
 const buttonEasy = document.getElementById('buttonEasy');
